@@ -1,6 +1,6 @@
 {
     "name": "react-native-pdf",
-    "version": "6.2.2",
+    "version": "6.6.2",
     "summary": "A react native PDF view component",
     "description": "A react native PDF view component, support ios and android platform",
     "main": "index.js",
@@ -29,6 +29,24 @@
     },
     "dependencies": {
         "crypto-js": "^3.2.0",
+        "deprecated-react-native-prop-types": "^2.3.0"
+    },
+    "devDependencies": {
         "prop-types": "^15.7.2"
-    }
+    },
+    "files": [
+        "android/",
+        "ios/",
+        "windows/",
+        "DoubleTapView.js",
+        "index.d.ts",
+        "index.js",
+        "index.js.flow",
+        "PdfManager.js",
+        "PdfPageView.js",
+        "PdfView.js",
+        "PdfViewFlatList.js",
+        "PinchZoomView.js",
+        "react-native-pdf.podspec"
+    ]
 }
