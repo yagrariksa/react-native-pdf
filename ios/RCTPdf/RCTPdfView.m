@@ -452,46 +452,6 @@ const float MIN_SCALE = 1.0f;
 
 #pragma mark gesture process
 
-/**
- *  Tap
- *  zoom reset or zoom in
- *
- *  @param recognizer
- */
-- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer
-{
-    // Cycle through min/mid/max scale factors to be consistent with Android
-    float min = self->_pdfView.minScaleFactor/self->_fixScaleFactor;
-    float max = self->_pdfView.maxScaleFactor/self->_fixScaleFactor;
-    float mid = (max - min) / 2 + min;
-    float scale = self->_scale;
-    if (self->_scale < mid) {
-        scale = mid;
-    } else if (self->_scale < max) {
-        scale = max;
-    } else {
-        scale = min;
-    }
-
-    CGFloat newScale = scale * self->_fixScaleFactor;
-    CGPoint tapPoint = [recognizer locationInView:self->_pdfView];
-    tapPoint = [self->_pdfView convertPoint:tapPoint toPage:self->_pdfView.currentPage];
-    CGRect zoomRect = CGRectZero;
-    zoomRect.size.width = self->_pdfView.frame.size.width * newScale;
-    zoomRect.size.height = self->_pdfView.frame.size.height * newScale;
-    zoomRect.origin.x = tapPoint.x - zoomRect.size.width / 2;
-    zoomRect.origin.y = tapPoint.y - zoomRect.size.height / 2;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:0.3 animations:^{
-            [self->_pdfView setScaleFactor:newScale];
-            [self->_pdfView goToRect:zoomRect onPage:self->_pdfView.currentPage];
-
-            [self setNeedsDisplay];
-            [self onScaleChanged:Nil];
-        }];
-    });
-}
 
 /**
  *  Single Tap
@@ -542,15 +502,6 @@ const float MIN_SCALE = 1.0f;
  */
 - (void)bindTap
 {
-    // UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                          action:@selector(handleDoubleTap:)];
-    //trigger by one finger and double touch
-    // doubleTapRecognizer.numberOfTapsRequired = 2;
-    // doubleTapRecognizer.numberOfTouchesRequired = 1;
-    // doubleTapRecognizer.delegate = self;
-
-    // [self addGestureRecognizer:doubleTapRecognizer];
-
     UITapGestureRecognizer *singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                           action:@selector(handleSingleTap:)];
     //trigger by one finger and one touch
@@ -559,7 +510,6 @@ const float MIN_SCALE = 1.0f;
     singleTapRecognizer.delegate = self;
 
     [self addGestureRecognizer:singleTapRecognizer];
-    [singleTapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
 
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                                                                           action:@selector(handlePinch:)];

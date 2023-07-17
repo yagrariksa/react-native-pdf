@@ -86,8 +86,8 @@ export default class PdfView extends Component {
   constructor(props) {
     super(props);
 
-    console.log("LOG: PdfView.js: constructor");
-    console.log("LOG: PdfView.js: path", props.path);
+    // console.log("LOG: PdfView.js: constructor");
+    // console.log("LOG: PdfView.js: path", props.path);
     this.state = {
       pdfLoaded: false,
       fileNo: -1,
@@ -109,12 +109,12 @@ export default class PdfView extends Component {
   }
 
   componentDidMount() {
-    console.log("LOG: mounting pdf");
+    // console.log("LOG: mounting pdf");
     this._mounted = true;
 
     PdfManager.loadFile(this.props.path, this.props.password)
       .then((pdfInfo) => {
-        console.log("LOG: loadFile:", pdfInfo);
+        // console.log("LOG: loadFile:", pdfInfo);
         if (this._mounted) {
           const fileNo = pdfInfo[0];
           const numberOfPages = pdfInfo[1];
@@ -131,7 +131,7 @@ export default class PdfView extends Component {
             centerContent: numberOfPages > 1 ? false : true,
           });
           if (this.props.onLoadComplete) {
-            console.log("LOG: load complete");
+            // console.log("LOG: load complete");
             this.props.onLoadComplete(numberOfPages, this.props.path, {
               width,
               height,
@@ -140,7 +140,7 @@ export default class PdfView extends Component {
         }
       })
       .catch((error) => {
-        console.log("ERROR: PdfView.js:", error);
+        // console.log("ERROR: PdfView.js:", error);
         this.props.onError(error);
       });
 
@@ -181,7 +181,7 @@ export default class PdfView extends Component {
     }
 
     if (this.props.path !== prevProps.path) {
-      console.log("LOG: path updated", prevProps.path, "to", this.props.path);
+      // console.log("LOG: path updated", prevProps.path, "to", this.props.path);
     }
   }
 
@@ -280,12 +280,12 @@ export default class PdfView extends Component {
   };
 
   _onItemDoubleTap = (index) => {
-    console.log("LOG: PdfView.js: DoubleTap");
+    // console.log("LOG: PdfView.js: DoubleTap");
   };
 
   _onScaleChanged = (pinchInfo) => {
     let newScale = pinchInfo.scale * this.state.scale;
-    console.log("Fire", newScale);
+    // console.log("Fire", newScale);
     if (newScale > 3) newScale = 3;
     if (newScale <= 1) return;
     const newContentOffset = {

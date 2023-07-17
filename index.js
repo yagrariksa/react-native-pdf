@@ -122,7 +122,7 @@ export default class Pdf extends Component {
 
   constructor(props) {
     super(props);
-    console.log("LOG: index.js: constructor");
+    // console.log("LOG: index.js: constructor");
     this.state = {
       path: "",
       isDownloaded: false,

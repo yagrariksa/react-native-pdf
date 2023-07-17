@@ -64,7 +64,7 @@ export default class DoubleTapView extends Component {
     Math.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2).toFixed(1);
 
   isDoubleTap = (currentTouchTimeStamp, { x0, y0 }) => {
-    console.log("LOG: DoubletTapView.js: isDoubleTap");
+    // console.log("LOG: DoubletTapView.js: isDoubleTap");
     const { prevTouchX, prevTouchY, prevTouchTimeStamp } = this.prevTouchInfo;
     const dt = currentTouchTimeStamp - prevTouchTimeStamp;
     const { delay, radius } = this.props;
@@ -77,7 +77,7 @@ export default class DoubleTapView extends Component {
   };
 
   handlePanResponderRelease = (evt, gestureState) => {
-    console.log("LOG: DoubletTapView.js: handlePanResponderRelease");
+    // console.log("LOG: DoubletTapView.js: handlePanResponderRelease");
     const currentTouchTimeStamp = Date.now();
     const x = evt.nativeEvent.locationX;
     const y = evt.nativeEvent.locationY;
