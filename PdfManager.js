@@ -1,3 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable strict */
+/* eslint-disable no-param-reassign */
 /**
  * Copyright (c) 2017-present, Wonday (@wonday.org)
  * All rights reserved.
@@ -6,26 +9,21 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-const invariant = require('fbjs/lib/invariant');
-const PdfManagerNative = require('react-native').NativeModules.PdfManager;
+"use strict";
 
+const PdfManagerNative = require("react-native").NativeModules.PdfManager;
 
 export default class PdfManager {
-
-    static loadFile(path: string,
-                    password?: string,): Promise<string> {
-
-        invariant(
-            typeof path === 'string',
-            'path must be a valid string.',
-        );
-
-        if (password === undefined) {
-            password = "";
-        }
-
-        return PdfManagerNative.loadFile(path, password);
-
+  static loadFile(path, password) {
+    console.log("LOG: PdfManager.js: loadFile:", path, password);
+    if (typeof path !== "string") {
+      throw new TypeError("path must be a valid string.");
     }
+
+    if (password === undefined) {
+      password = "";
+    }
+
+    return PdfManagerNative.loadFile(path, password);
+  }
 }

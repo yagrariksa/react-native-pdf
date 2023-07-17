@@ -16,9 +16,20 @@ export type TableContent = {
     title: string,
 };
 
+export type Source = {
+    uri?: string;
+    headers?: {
+        [key: string]: string;
+    };
+    cache?: boolean;
+    cacheFileName?: string;
+    expiration?: number;
+    method?: string;
+};
+
 interface Props {
     style?: ReactNative.StyleProp<ReactNative.ViewStyle>,
-    source: object,
+    source: Source | number,
     page?: number,
     scale?: number,
     minScale?: number,
@@ -26,8 +37,7 @@ interface Props {
     horizontal?: boolean,
     spacing?: number,
     password?: string,
-    activityIndicator?: any,
-    activityIndicatorProps?: object,
+    renderActivityIndicator?: (progress: number) => React.ReactElement,
     enableAntialiasing?: boolean,
     enablePaging?: boolean,
     enableRTL?: boolean,
@@ -36,7 +46,7 @@ interface Props {
     trustAllCerts?: boolean,
     singlePage?: boolean,
     onLoadProgress?: (percent: number,) => void,
-    onLoadComplete?: (numberOfPages: number, path: string, size: {height: number, width: number}, tableContents?: TableContent[]) => void,
+    onLoadComplete?: (numberOfPages: number, path: string, size: { height: number, width: number }, tableContents?: TableContent[]) => void,
     onPageChanged?: (page: number, numberOfPages: number) => void,
     onError?: (error: object) => void,
     onPageSingleTap?: (page: number, x: number, y: number) => void,

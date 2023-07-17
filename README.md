@@ -22,17 +22,15 @@ So you should install react-native-pdf and rn-fetch-blob
 | ------------------------- | --------------- | ------- | -------- | -------- |
 | react-native-pdf          | 4.x.x - 5.0.x   | 5.0.9+  | 6.0.0+   | 6.2.0+   |
 | rn-fetch-blob             | 0.10.15         | 0.10.15 | 0.11.0+  | 0.11.0+  |
-| progress-bar-android      |                 |         |          | 1.0.3+   |
-| progress-view             |                 |         |          | 1.0.3+   |
 
 ### Installation
 
 ```bash
 # Using npm
-npm install react-native-pdf rn-fetch-blob @react-native-community/progress-bar-android @react-native-community/progress-view --save
+npm install react-native-pdf rn-fetch-blob --save
 
 # or using yarn:
-yarn add react-native-pdf rn-fetch-blob @react-native-community/progress-bar-android @react-native-community/progress-view
+yarn add react-native-pdf rn-fetch-blob
 ```
 
 Then follow the instructions for your platform to link react-native-pdf into your project:
