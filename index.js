@@ -33,13 +33,7 @@
 "use strict";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  Platform,
-  StyleSheet,
-  Image,
-  Text,
-} from "react-native";
+import { View, Platform, StyleSheet, Image, Text } from "react-native";
 
 import ReactNativeBlobUtil from "react-native-blob-util";
 import { ViewPropTypes } from "deprecated-react-native-prop-types";
@@ -436,6 +430,25 @@ export default class Pdf extends Component {
                 <Text>{`${(this.state.progress * 100).toFixed(2)}%`}</Text>
               )}
             </View>
+          ) : Platform.OS === "android" ? (
+            <PdfCustom
+              ref={(component) => (this._root = component)}
+              {...this.props}
+              style={[{ flex: 1, backgroundColor: "#EEE" }, this.props.style]}
+              path={this.state.path}
+              onChange={this._onChange}
+            />
+          ) : this.props.usePDFKit && this.state.isSupportPDFKit === 1 ? (
+            <PdfCustom
+              ref={(component) => (this._root = component)}
+              {...this.props}
+              style={[
+                { backgroundColor: "#EEE", overflow: "hidden" },
+                this.props.style,
+              ]}
+              path={this.state.path}
+              onChange={this._onChange}
+            />
           ) : (
             <PdfView
               {...this.props}
@@ -457,6 +470,16 @@ export default class Pdf extends Component {
     }
     return null;
   }
+}
+
+if (Platform.OS === "android") {
+  var PdfCustom = requireNativeComponent("RCTPdf", Pdf, {
+    nativeOnly: { path: true, onChange: true },
+  });
+} else if (Platform.OS === "ios") {
+  var PdfCustom = requireNativeComponent("RCTPdfView", Pdf, {
+    nativeOnly: { path: true, onChange: true },
+  });
 }
 
 const styles = StyleSheet.create({
